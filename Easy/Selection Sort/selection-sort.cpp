@@ -28,9 +28,7 @@ class Solution
     {
         for (int i = 0; i < n - 1; i++) { 
             int min_ind = select(arr, i, n);
-            int temp = arr[min_ind];
-            arr[min_ind] = arr[i];
-            arr[i] = temp;
+            swap(arr[i], arr[min_ind]);
         }
     }
 };
