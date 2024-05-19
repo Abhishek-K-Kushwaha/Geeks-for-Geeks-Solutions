@@ -11,51 +11,46 @@ class Solution{
     //Function to return a list containing the union of the two arrays. 
     vector<int> findUnion(int arr1[], int arr2[], int n, int m)
 {
-    vector<int> nums;
-    int num = INT_MIN;
-    int p1 = 0, p2 = 0;
-    
-    while (p1 < n && p2 < m) {
-        if (arr1[p1] < arr2[p2]) {
-            if (arr1[p1] > num) {
-                num = arr1[p1];
-                nums.push_back(num);
+    vector <int> res;
+
+        int i = 0, j = 0;
+
+        while (i < n && j < m) {
+            if (arr1[i] <= arr2[j]) {
+                res.push_back(arr1[i]);
+                i++;
+                while (i < n && arr1[i] == arr1[i - 1]) {
+                    i++;
+                }
+                while (j < m && arr2[j] == arr1[i - 1]) {
+                    j++;
+                }
+            } else {
+                res.push_back(arr2[j]);
+                j++;
+                while (j < m && arr2[j] == arr2[j - 1]) {
+                    j++;
+                }
+                while (i < n && arr1[i] == arr2[j - 1]) {
+                    i++;
+                }
             }
-            p1++;
-        } else if (arr2[p2] < arr1[p1]) {
-            if (arr2[p2] > num) {
-                num = arr2[p2];
-                nums.push_back(num);
-            }
-            p2++;
-        } else {
-            if (arr1[p1] > num) {
-                num = arr1[p1];
-                nums.push_back(num);
-            }
-            p1++;
-            p2++;
         }
-    }
-    
-    while (p1 < n) {
-        if (arr1[p1] > num) {
-            num = arr1[p1];
-            nums.push_back(num);
+
+        while (i < n) {
+            res.push_back(arr1[i]);
+            i++;
+            while (i < n && arr1[i] == arr1[i - 1]) i++;
         }
-        p1++;
-    }
-    
-    while (p2 < m) {
-        if (arr2[p2] > num) {
-            num = arr2[p2];
-            nums.push_back(num);
+
+        while (j < m) {
+            res.push_back(arr2[j]);
+            j++;
+            while (j < m && arr2[j] == arr2[j - 1]) j++;
         }
-        p2++;
+
+        return res;
     }
-    
-    return nums;
-}
 };
 
 //{ Driver Code Starts.
