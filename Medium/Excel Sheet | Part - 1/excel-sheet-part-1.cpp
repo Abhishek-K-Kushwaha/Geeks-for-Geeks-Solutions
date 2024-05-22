@@ -14,7 +14,6 @@ class Solution{
     {
         string str;
         int rem;
-        int index = 0;
         while (N!=0){
             rem = (N-1)%26;
             str += (rem + 'A');
