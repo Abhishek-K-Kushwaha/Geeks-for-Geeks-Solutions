@@ -16,18 +16,11 @@ class Solution
         for (int i = 0; i < n; i++){
             sum += arr[i];
             high = i+1;
-            //if (sum == s) return {low,high};
-            // else if (sum < s) {
-            //     //high++;
-                
-            // }
-            //else {
-                while(sum > s){
-                    sum -= arr[low-1];
-                    low++;
-                }
-                if (sum == s && low <= high) return {low,high};
-            //}
+            while(sum > s){
+                sum -= arr[low-1];
+                low++;
+            }
+            if (sum == s && low <= high) return {low,high};
         }
         return {-1};
     }
