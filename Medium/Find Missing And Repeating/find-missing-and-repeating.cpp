@@ -7,18 +7,19 @@ using namespace std;
 class Solution{
 public:
     vector<int> findTwoElement(vector<int> arr, int n) {
-        unordered_map<int,int> dict;
         vector<int> ans;
+        long long ns = (long long)n*(n+1)/2;
+        long long ns2 = (long long)n*(n+1)*(2*n+1)/6;
         long long sum = 0;
+        long long sum2 = 0;
         for (int num:arr){
             sum += num;
-            dict[num]++;
-            if (dict[num] == 2){
-                ans.push_back(num);
-            }
+            sum2 += (long long)num*num;
         }
-        long long nsum = (long long)n*(n+1)/2;
-        ans.push_back(nsum - sum + ans[0]);
+        long long ndiff = ns - sum;
+        long long ndiff2 = ns2 - sum2;
+        ans.push_back((ndiff2/ndiff - ndiff)/2);
+        ans.push_back(ndiff + ans[0]);
         return ans;
     }
 };
