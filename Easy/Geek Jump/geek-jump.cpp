@@ -15,7 +15,7 @@ class Solution {
         
         for (int i = 4; i <= n; i++){
             int temp1 = enrg1 + abs(h[i-1] - h[i-2]);
-            int temp2 = enrg2 + min(abs(h[i-3] - h[i-1]), abs(h[i-3] - h[i-2]) + abs(h[i-2] - h[i-1]));
+            int temp2 = enrg2 + abs(h[i-3] - h[i-1]);
             enrg2 = enrg1;
             enrg1 = min(temp1,temp2);
         }
