@@ -5,7 +5,7 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
   public:
-    bool dfs(vector<int>& visited, vector<int> adj[], int src){
+    bool bfs(vector<int>& visited, vector<int> adj[], int src){
         queue<vector<int>> q;
         q.push({src,-1}); // Start BFS from node 0
         visited[src] = 1;
@@ -29,7 +29,7 @@ class Solution {
     bool isCycle(int V, vector<int> adj[]) {
         vector<int> visited(V, 0); // Initialize visited vector
         for (int i = 0; i < V; i++){
-            if (!visited[i] && dfs(visited,adj,i)){
+            if (!visited[i] && bfs(visited,adj,i)){
                 return true;
             }
         }
