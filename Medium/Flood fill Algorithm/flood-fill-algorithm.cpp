@@ -6,27 +6,26 @@ using namespace std;
 class Solution {
 public:
     vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) {
-    int prevColor = image[sr][sc];
-    if (prevColor == newColor) return image; // No need to do anything if already the new color
-    int m = image.size();
-    int n = image[0].size();
-    queue<pair<int, int>> q;
-    q.push(make_pair(sr, sc));
-    while (!q.empty()) {
-        int r = q.front().first;
-        int c = q.front().second;
-        q.pop();
-        if (image[r][c] == prevColor) {
-            image[r][c] = newColor;
-            if (r - 1 >= 0) q.push(make_pair(r - 1, c)); // Up
-            if (r + 1 < m) q.push(make_pair(r + 1, c)); // Down
-            if (c - 1 >= 0) q.push(make_pair(r, c - 1)); // Left
-            if (c + 1 < n) q.push(make_pair(r, c + 1)); // Right
-        }
-    }
-    return image;
-}
-
+	    int prevColor = image[sr][sc];
+	    if (prevColor == newColor) return image; // No need to do anything if already the new color
+	    int m = image.size();
+	    int n = image[0].size();
+	    queue<pair<int, int>> q;
+	    q.push(make_pair(sr, sc));
+	    while (!q.empty()) {
+	        int r = q.front().first;
+	        int c = q.front().second;
+	        q.pop();
+	        if (image[r][c] == prevColor) {
+	            image[r][c] = newColor;
+	            if (r - 1 >= 0) q.push(make_pair(r - 1, c)); // Up
+	            if (r + 1 < m) q.push(make_pair(r + 1, c)); // Down
+	            if (c - 1 >= 0) q.push(make_pair(r, c - 1)); // Left
+	            if (c + 1 < n) q.push(make_pair(r, c + 1)); // Right
+	        }
+	    }
+	    return image;
+	}
 };
 
 
