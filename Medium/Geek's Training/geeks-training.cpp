@@ -5,32 +5,24 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
   public:
-    int f(vector<vector<int>>& points, int day, int last, vector<vector<int>>& dp){
-        int maxsum = 0;
-        if (day <= 0){
-            for (int i = 0; i < 3; i++){
-                if (i != last){
-                    maxsum = max(maxsum, points[day][i]);
-                }
-            }
-            dp[day][last] = maxsum;
-            return maxsum;
-        }
-        if (dp[day][last] != -1) return dp[day][last];
-        for (int i = 0; i < 3; i++){
-            if (i != last){
-                maxsum = max(maxsum, points[day][i] + f(points, day-1, i, dp));
-            }
-        }
-        dp[day][last] = maxsum;
-    }
     int maximumPoints(vector<vector<int>>& points, int n) {
-        vector<vector<int>> dp(n, vector<int>(3,-1));
-        int maxsum = 0;
-        for (int i = 0; i < 3; i++){
-            maxsum = max(maxsum, points[n-1][i] + f(points, n-2, i, dp));
+        vector<vector<int>> dp(n, vector<int>(3, 0));
+    
+    for (int i = 0; i < 3; i++) {
+        dp[0][i] = points[0][i];
+    }
+    
+    for (int day = 1; day < n; day++) {
+        for (int i = 0; i < 3; i++) {
+            dp[day][i] = max(
+                points[day][i] + dp[day - 1][(i + 1) % 3], 
+                points[day][i] + dp[day - 1][(i + 2) % 3]
+            );
         }
-        return maxsum;
+    }
+    
+    int maxsum = max({dp[n - 1][0], dp[n - 1][1], dp[n - 1][2]});
+    return maxsum;
     }
 };
 
