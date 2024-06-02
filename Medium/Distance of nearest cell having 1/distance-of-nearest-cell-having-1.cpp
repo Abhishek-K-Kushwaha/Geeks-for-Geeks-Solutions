@@ -7,47 +7,45 @@ class Solution
 {
     public:
     //Function to find distance of nearest 1 in the grid for each cell.
-	vector<vector<int>>nearest(vector<vector<int>> grid)
+	vector<vector<int>>nearest(vector<vector<int>> mat)
 	{
-	    int n = grid.size(); 
-        int m = grid[0].size(); 
-        vector<vector<int>> dist(n, vector<int>(m, -1)); // distance matrix initialized to -1
-        queue<pair<int, int>> q; // queue to store coordinates
-    
-        // Traverse the matrix to initialize queue and distance matrix
-        for (int i = 0; i < n; ++i) {
-            for (int j = 0; j < m; ++j) {
-                if (grid[i][j] == 1) {
+	    int m = mat.size();
+        int n = mat[0].size();
+        vector<vector<int>> ans(m, vector<int>(n, -1)); // initialize with -1
+        queue<pair<int,int>> q;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (mat[i][j] == 1) {
                     q.push({i, j});
-                    dist[i][j] = 0; // distance to itself is zero
+                    ans[i][j] = 0;
                 }
             }
         }
-    
-        // Direction vectors for moving up, right, down, left
-        vector<int> delRow = {-1, 0, 1, 0}; 
-        vector<int> delCol = {0, 1, 0, -1}; 
-    
-        // Perform BFS
         while (!q.empty()) {
-            int row = q.front().first; 
-            int col = q.front().second; 
-            q.pop(); 
-            
-            // Check all four possible directions
-            for (int i = 0; i < 4; ++i) {
-                int newRow = row + delRow[i]; 
-                int newCol = col + delCol[i]; 
-                
-                // Check if new position is within bounds and not yet visited
-                if (newRow >= 0 && newRow < n && newCol >= 0 && newCol < m && dist[newRow][newCol] == -1) {
-                    dist[newRow][newCol] = dist[row][col] + 1; // update distance
-                    q.push({newRow, newCol}); // add new position to queue
-                }
+            int x = q.front().first;
+            int y = q.front().second;
+            //int d = q.front()[2];
+            int d = ans[x][y];
+            q.pop();
+            if (x - 1 >= 0 && ans[x - 1][y] == -1) {
+                ans[x - 1][y] = d + 1;
+                q.push({x - 1, y});
+            }
+            if (x + 1 < m && ans[x + 1][y] == -1) {
+                ans[x + 1][y] = d + 1;
+                q.push({x + 1, y});
+            }
+
+            if (y - 1 >= 0 && ans[x][y - 1] == -1) {
+                ans[x][y - 1] = d + 1;
+                q.push({x, y - 1});
+            }
+            if (y + 1 < n && ans[x][y + 1] == -1) {
+                ans[x][y + 1] = d + 1;
+                q.push({x, y + 1});
             }
         }
-    
-        return dist;
+        return ans;
 	}
 };
 
